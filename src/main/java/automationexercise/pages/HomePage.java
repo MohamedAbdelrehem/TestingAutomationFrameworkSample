@@ -1,8 +1,10 @@
 package automationexercise.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+//import io.qameta.allure.Severity;
 
 public class HomePage {
     private WebDriver driver;
@@ -12,9 +14,10 @@ public class HomePage {
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
-
-    public  void navigateToHomePage() {
+    @Step("Navigate to url 'http://automationexercise.com'\n")
+    public  HomePage navigateToHomePage() {
         driver.get(homepageURL);
+        return this;
     }
 
     //home page locator
@@ -22,6 +25,7 @@ public class HomePage {
 
 
     //*Home Page
+    @Step("Verify that home page is visible successfully")
     public HomePage assertHomePage() {
 
         //? how can i check on url and i already opend using the url

@@ -1,5 +1,4 @@
-{
-  "users": [
+
     {
       "firstName": "Mohamed",
       "lastName": "Abdelrehem",
@@ -16,40 +15,4 @@
       "city": "Giza",
       "zipCode": "11245",
       "mobileNumber": "01011929211"
-    },
-    {
-      "firstName": "Ahmed",
-      "lastName": "Hassan",
-      "email": "ahmedhassan54@gmail.com",
-      "password": "Ahmed2023@",
-      "day": "15",
-      "month": "July",
-      "year": "1998",
-      "company": "Cairo",
-      "address1": "10 Tahrir Square",
-      "address2": "Downtown, Cairo",
-      "country": "United States",
-      "state": "Cairo",
-      "city": "Cairo",
-      "zipCode": "11311",
-      "mobileNumber": "01234567890"
-    },
-    {
-      "firstName": "Sara",
-      "lastName": "Ali",
-      "email": "sara.ali88@gmail.com",
-      "password": "Sara2022@",
-      "day": "22",
-      "month": "March",
-      "year": "1995",
-      "company": "Alexandria",
-      "address1": "50 Corniche Street",
-      "address2": "Gleem, Alexandria",
-      "country": "United States",
-      "state": "Alexandria",
-      "city": "Alexandria",
-      "zipCode": "21523",
-      "mobileNumber": "01122334455"
     }
-  ]
-}

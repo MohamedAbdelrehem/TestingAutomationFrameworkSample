@@ -1,9 +1,13 @@
 package automationexercise.test;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import utilities.DriverFactory;
+import utilities.JsonFileManager;
 import utilities.ScreenshotHeadway;
 import automationexercise.pages.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,69 +17,50 @@ public class TC1RegisterUser {
    private WebDriver driver;
     ScreenshotHeadway screenshot;
 
+
     //pages
     HomePage homePage;
     SignupLoginPage signupPage;
     SignupFormPage signupFormPage;
     ConfitmationAccountPage confitmationAccountPage;
     Navbar navbar;
+    JsonFileManager testData;
 
 
 
     //* Setup Methods
     @BeforeClass
     private void setup() {
-        driver = new ChromeDriver();
-        homePage = new HomePage(driver);
-        signupPage = new SignupLoginPage(driver);
-        signupFormPage = new SignupFormPage(driver);
-        confitmationAccountPage = new ConfitmationAccountPage(driver);
-        navbar = new Navbar(driver);
 
-        // Opening the website
-        homePage.navigateToHomePage();
-        driver.manage().window().maximize();
+        driver = DriverFactory.initDriver("chrome", true);
+        testData = new JsonFileManager("D:/Headway2024/Automation/JAVA/HeadwayAutomationDemo/src/test/TestData/UsersTestData.json");
         // Our own class that takes the driver as an argument and makes taking screenshots easier
         screenshot = new ScreenshotHeadway(driver);
     }
 
     @AfterClass
-    private void ending() {
+    private void tearDown() {
         driver.quit();
     }
+
     @Test()
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify the user can successfully register, log in, and delete their account on the Automation Exercise website.")
     private void RegisterUser() {
-
-
-//
-//        //* Test data until we start using Json for it
-//        String firstName = "Mohamed", lastName = "Abdelrehem", email = "mohamedabedlrehem32@gmail.com";
-//        String password = "Mohamed2001@";
-//        String day = "11";
-//        String month = "May";
-//        String year = "2001";
-//        String company = "Giza";
-//        String address1 = "25 Studio Al-Ahram";
-//        String address2 = "Omrania Sharkia, Giza";
-//        String country = "United States";
-//        String state = "Giza";
-//        String city = "Giza";
-//        String zipCode = "11245";
-//        String mobileNumber = "01011929211";
-
-        homePage.assertHomePage();
-        navbar.clickSignupLoginButton();
-        signupPage.assertLoginSignUp()
-                    .signUp(firstName, lastName, email)
+        new HomePage(driver).navigateToHomePage()
+            .assertHomePage();
+        new Navbar(driver).clickSignupLoginButton();
+        new SignupLoginPage(driver).assertLoginSignUp()
+                    .signUp(testData.getTestData("firstName"), testData.getTestData("lastName"), testData.getTestData("email"))
                     .clickSignUpButton();
-        signupFormPage.assertSignUpPage()
-                        .fillRegisterForm(firstName, lastName, password, day, month, year, company, address1, address2, country, state, city, zipCode, mobileNumber)
+        new SignupFormPage(driver).assertSignUpPage()
+                        .fillRegisterForm(testData.getTestData("firstName"), testData.getTestData("lastName"), testData.getTestData("password"), testData.getTestData("day"), testData.getTestData("month"), testData.getTestData("year"), testData.getTestData("company"), testData.getTestData("address1"), testData.getTestData("address2"), testData.getTestData("country"), testData.getTestData("state"), testData.getTestData("city"), testData.getTestData("zipCode"), testData.getTestData("mobileNumber"))
                         .clickCreateAccount();
-        confitmationAccountPage.assertAccountCreated()
+        new ConfitmationAccountPage(driver).assertAccountCreated()
                                 .clickContinueButton();
-        navbar.assertUserLoggedName(firstName + lastName)
+        //? is it right to recreate the Navbar and ConfitmationAccountPage again
+        new Navbar(driver).assertUserLoggedName("MohamedAbdelrehem")
                 .deleteAccount();
-        confitmationAccountPage.clickContinueButton();
+        new ConfitmationAccountPage(driver).clickContinueButton();
     }
-
 }

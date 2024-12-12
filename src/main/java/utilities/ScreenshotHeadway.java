@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter;
 
 // Reusable class for taking screenshots
 public class ScreenshotHeadway {
-    private WebDriver driver;
-    private final String sessionFolderPath;
+    private static WebDriver driver;
+    private static String sessionFolderPath;
 
     // Constructor to initialize WebDriver and set session folder path
     public ScreenshotHeadway(WebDriver driver) {
@@ -40,7 +40,7 @@ public class ScreenshotHeadway {
     }
 
     // Method to capture and save a screenshot within the session folder
-    public void captureScreenshot(String fileName) {
+    public static void captureScreenshot(String fileName) {
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
         // Ensure the filename ends with .png

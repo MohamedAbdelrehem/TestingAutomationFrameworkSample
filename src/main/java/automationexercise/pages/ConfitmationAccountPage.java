@@ -1,5 +1,6 @@
 package automationexercise.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -17,6 +18,7 @@ public class ConfitmationAccountPage {
     public final By continueButton = By.cssSelector("[data-qa='continue-button']");
 
     //*Account Created Page
+    @Step("Verify that 'ACCOUNT CREATED!' is visible")
     public ConfitmationAccountPage assertAccountCreated() {
         Assert.assertEquals(driver.getTitle(), "Automation Exercise - Account Created", "Verify Account Created page title");
 
@@ -25,6 +27,7 @@ public class ConfitmationAccountPage {
     }
 
     //*multiple usage method
+    @Step("Click 'Continue' button")
     public ConfitmationAccountPage clickContinueButton() {
         driver.findElement(continueButton).click();
         return this;

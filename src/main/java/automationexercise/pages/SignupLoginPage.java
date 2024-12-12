@@ -1,5 +1,6 @@
 package automationexercise.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,7 @@ public class SignupLoginPage {
     }
 
     //* Login/SignUp page
+    @Step("Verify 'New User Signup!' is visible")
     public SignupLoginPage assertLoginSignUp() {
         Assert.assertEquals(driver.getTitle(), "Automation Exercise - Signup / Login", "Verify Login page title");
 
@@ -34,7 +36,7 @@ public class SignupLoginPage {
         return this;
 
     }
-
+    @Step("Enter name and email address")
     public SignupLoginPage signUp(String firstNameSignup, String lastNameSignup, String emailSignup) {
         WebElement nameTextField = driver.findElement(signUpNameTextField);
         WebElement emailTextField = driver.findElement(signUpEmailTextField);
@@ -44,7 +46,7 @@ public class SignupLoginPage {
         emailTextField.sendKeys(emailSignup);
         return this;
     }
-
+    @Step("Click 'Signup' button")
     public SignupLoginPage clickSignUpButton() {
         driver.findElement(signupButton).click();
         return this;

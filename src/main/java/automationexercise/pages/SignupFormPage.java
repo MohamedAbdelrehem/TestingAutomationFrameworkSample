@@ -1,5 +1,6 @@
 package automationexercise.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -35,6 +36,7 @@ public class SignupFormPage {
     private final By createAccountButton = By.cssSelector("[data-qa='create-account']");
 
     //* SignUp page
+    @Step("Verify that 'ENTER ACCOUNT INFORMATION' is visible")
     public SignupFormPage assertSignUpPage() {
         Assert.assertEquals(driver.getTitle(), "Automation Exercise - Signup", "Verify Signup page title");
 
@@ -55,11 +57,12 @@ public class SignupFormPage {
         new Select(driver.findElement(monthsDropdown)).selectByVisibleText(month);
         new Select(driver.findElement(yearsDropdown)).selectByVisibleText(year);
     }
-
+    @Step("Select checkbox 'Sign up for our newsletter!'")
     public void selectNewsletter() {
         driver.findElement(newsletterCheckBox).click();
     }
 
+    @Step("Select checkbox 'Receive special offers from our partners!'")
     public void selectSpecialOffers() {
         driver.findElement(specialOffersCheckBox).click();
     }
@@ -103,11 +106,11 @@ public class SignupFormPage {
     public void enterMobileNumber(String mobileNumber) {
         driver.findElement(mobileNumberField).sendKeys(mobileNumber);
     }
-
+    @Step("Click 'Create Account button'")
     public void clickCreateAccount() {
         driver.findElement(createAccountButton).click();
     }
-
+    @Step("Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number")
     public SignupFormPage fillRegisterForm(String firstName, String lastName, String password, String day, String month, String year, String company, String address1, String address2, String country, String state, String city, String zipCode, String mobileNumber) {
         selectTitleMr();
         enterPassword(password);
