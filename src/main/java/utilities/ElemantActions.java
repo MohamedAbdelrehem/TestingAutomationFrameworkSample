@@ -1,5 +1,6 @@
 package utilities;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,18 +10,18 @@ import org.openqa.selenium.support.ui.Wait;
 import java.time.Duration;
 
 public class ElemantActions {
-    private static WebDriver driver;
-    private static Wait<WebDriver> wait;
-    private static int defultWaitingTime = 10;
+    private static int defaultWaitingTime = 10;
 
-    public static void click(By elementLocator) {
-        elementWaiting(elementLocator);
+    @Step("Click on Element: {elementLocator}")
+    public static void clickElement(WebDriver driver, By elementLocator) {
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(defaultWaitingTime));
+        elementWaiting(driver, wait, elementLocator);
         wait.until(ExpectedConditions.elementToBeClickable(elementLocator));
         System.out.println("Clicking on element " + driver.findElement(elementLocator).getAccessibleName());
         driver.findElement(elementLocator).click();
     }
-    private static void elementWaiting(By elementLocator) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(defultWaitingTime));
+
+    private static void elementWaiting(WebDriver driver, Wait<WebDriver> wait, By elementLocator) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
     }
 }

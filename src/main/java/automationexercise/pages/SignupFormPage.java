@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import static utilities.ElemantActions.clickElement;
+
 public class SignupFormPage {
     private WebDriver driver;
 
@@ -108,7 +110,7 @@ public class SignupFormPage {
     }
     @Step("Click 'Create Account button'")
     public void clickCreateAccount() {
-        driver.findElement(createAccountButton).click();
+        clickElement(driver, createAccountButton);
     }
     @Step("Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number")
     public SignupFormPage fillRegisterForm(String firstName, String lastName, String password, String day, String month, String year, String company, String address1, String address2, String country, String state, String city, String zipCode, String mobileNumber) {

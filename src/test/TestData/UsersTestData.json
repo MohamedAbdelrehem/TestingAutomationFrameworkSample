@@ -1,18 +1,17 @@
-
-    {
-      "firstName": "Mohamed",
-      "lastName": "Abdelrehem",
-      "email": "mohamedabdelrehem32@gmail.com",
-      "password": "Mohamed2001@",
-      "day": "11",
-      "month": "May",
-      "year": "2001",
-      "company": "Giza",
-      "address1": "25 Studio Al-Ahram",
-      "address2": "Omrania Sharkia, Giza",
-      "country": "United States",
-      "state": "Giza",
-      "city": "Giza",
-      "zipCode": "11245",
-      "mobileNumber": "01011929211"
-    }
+{
+  "firstName": "Mohamed",
+  "lastName": "Abdelrehem",
+  "email": "mohamedabdelrehem@example.com",
+  "password": "Password123!",
+  "day": "15",
+  "month": "August",
+  "year": "1990",
+  "company": "TechCorp",
+  "address1": "123 Fake Street",
+  "address2": "Downtown, New York",
+  "country": "United States",
+  "state": "New York",
+  "city": "New York",
+  "zipCode": "10001",
+  "mobileNumber": "1234567890"
+}

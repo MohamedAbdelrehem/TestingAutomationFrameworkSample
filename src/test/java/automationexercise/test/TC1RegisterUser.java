@@ -48,11 +48,11 @@ public class TC1RegisterUser {
     @Description("Verify the user can successfully register, log in, and delete their account on the Automation Exercise website.")
     private void RegisterUser() {
         new HomePage(driver).navigateToHomePage()
-            .assertHomePage();
+                            .assertHomePage();
         new Navbar(driver).clickSignupLoginButton();
         new SignupLoginPage(driver).assertLoginSignUp()
-                    .signUp(testData.getTestData("firstName"), testData.getTestData("lastName"), testData.getTestData("email"))
-                    .clickSignUpButton();
+                                 .signUp(testData.getTestData("firstName"), testData.getTestData("lastName"), testData.getTestData("email"))
+                                .clickSignUpButton();
         new SignupFormPage(driver).assertSignUpPage()
                         .fillRegisterForm(testData.getTestData("firstName"), testData.getTestData("lastName"), testData.getTestData("password"), testData.getTestData("day"), testData.getTestData("month"), testData.getTestData("year"), testData.getTestData("company"), testData.getTestData("address1"), testData.getTestData("address2"), testData.getTestData("country"), testData.getTestData("state"), testData.getTestData("city"), testData.getTestData("zipCode"), testData.getTestData("mobileNumber"))
                         .clickCreateAccount();

@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import static utilities.ElemantActions.clickElement;
+
 public class ConfitmationAccountPage {
     private WebDriver driver;
 
@@ -29,7 +31,7 @@ public class ConfitmationAccountPage {
     //*multiple usage method
     @Step("Click 'Continue' button")
     public ConfitmationAccountPage clickContinueButton() {
-        driver.findElement(continueButton).click();
+        clickElement(driver,continueButton);
         return this;
     }
 
