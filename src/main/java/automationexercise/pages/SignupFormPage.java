@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import static utilities.ElemantActions.clickElement;
+import static utilities.ElemantActions.sendKeys;
 
 public class SignupFormPage {
     private WebDriver driver;
@@ -47,11 +48,12 @@ public class SignupFormPage {
     }
 
     public void selectTitleMr() {
-        driver.findElement(titleMrRadioButton).click();
+        clickElement(driver, titleMrRadioButton);
     }
 
+
     public void enterPassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+        sendKeys(driver, passwordField, password);
     }
 
     public void selectDateOfBirth(String day, String month, String year) {
@@ -61,32 +63,32 @@ public class SignupFormPage {
     }
     @Step("Select checkbox 'Sign up for our newsletter!'")
     public void selectNewsletter() {
-        driver.findElement(newsletterCheckBox).click();
+        clickElement(driver, newsletterCheckBox);
     }
 
     @Step("Select checkbox 'Receive special offers from our partners!'")
     public void selectSpecialOffers() {
-        driver.findElement(specialOffersCheckBox).click();
+        clickElement(driver, specialOffersCheckBox);
     }
 
     public void enterFirstName(String firstName) {
-        driver.findElement(firstNameField).sendKeys(firstName);
+        sendKeys(driver, firstNameField, firstName);
     }
 
     public void enterLastName(String lastName) {
-        driver.findElement(lastNameField).sendKeys(lastName);
+        sendKeys(driver, lastNameField, lastName);
     }
 
     public void enterCompany(String company) {
-        driver.findElement(companyField).sendKeys(company);
+        sendKeys(driver, companyField, company);
     }
 
     public void enterAddress1(String address1) {
-        driver.findElement(address1Field).sendKeys(address1);
+        sendKeys(driver, address1Field, address1);
     }
 
     public void enterAddress2(String address2) {
-        driver.findElement(address2Field).sendKeys(address2);
+        sendKeys(driver, address2Field, address2);
     }
 
     public void selectCountry(String country) {
@@ -94,19 +96,19 @@ public class SignupFormPage {
     }
 
     public void enterState(String state) {
-        driver.findElement(stateField).sendKeys(state);
+        sendKeys(driver, stateField, state);
     }
 
     public void enterCity(String city) {
-        driver.findElement(cityField).sendKeys(city);
+        sendKeys(driver, cityField, city);
     }
 
     public void enterZipCode(String zipCode) {
-        driver.findElement(zipCodeField).sendKeys(zipCode);
+        sendKeys(driver, zipCodeField, zipCode);
     }
 
     public void enterMobileNumber(String mobileNumber) {
-        driver.findElement(mobileNumberField).sendKeys(mobileNumber);
+        sendKeys(driver, mobileNumberField, mobileNumber);
     }
     @Step("Click 'Create Account button'")
     public void clickCreateAccount() {
