@@ -68,5 +68,6 @@ public class TC1RegisterUser {
         new Navbar(driver).assertUserLoggedName("MohamedAbdelrehem")
                 .deleteAccount();
         new ConfitmationAccountPage(driver).clickContinueButton();
+        //comment for feature 2
     }
 }
