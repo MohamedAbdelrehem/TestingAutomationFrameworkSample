@@ -1,0 +1,25 @@
+name: E2E Workflow Automation Exercise
+
+on:
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: "0 3 * * 2,3"
+  workflow_dispatch:
+    inputs:
+      testsPath:
+        description: 'Path to Tests to be Executed'
+        required: false
+        default: ''
+
+jobs:
+  my_job:
+    name: deploy to staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: run print var in cmd
+        run: echo "test message ${{ github.event.inputs.testsPath }}"
+  
