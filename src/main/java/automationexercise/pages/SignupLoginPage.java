@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import static utilities.ElemantActions.*;
+
 public class SignupLoginPage {
     private WebDriver driver;
 
@@ -27,28 +29,24 @@ public class SignupLoginPage {
         Assert.assertEquals(driver.getTitle(), "Automation Exercise - Signup / Login", "Verify Login page title");
 
         // Verify that the signup form part is loaded
-        Assert.assertTrue(driver.findElement(signupFormCheck).isDisplayed(), "Signup form is displayed");
-
+        Assert.assertTrue(isElementDisplayed(driver, signupFormCheck), "Signup form is not displayed");
         // "New User Signup!" is loaded
         //! there is a dev element that appear inside the <h2> with the text we compare so it sometimes give a error
 //        WebElement newUserSignupText = driver.findElement(By.xpath("//h2[text()='New User Signup!']"));
-//        Assert.assertEquals(newUserSignupText.getText(), "New User Signup!Identity management solutions", "New User Signup! text is displayed");
+//        Assert.assertEquals(newUserSignupText.getElementText(), "New User Signup!Identity management solutions", "New User Signup! text is displayed");
         return this;
 
     }
     @Step("Enter name and email address")
     public SignupLoginPage signUp(String firstNameSignup, String lastNameSignup, String emailSignup) {
-        WebElement nameTextField = driver.findElement(signUpNameTextField);
-        WebElement emailTextField = driver.findElement(signUpEmailTextField);
-
-        nameTextField.sendKeys(firstNameSignup + lastNameSignup);
         // TODO: Add temp mail API
-        emailTextField.sendKeys(emailSignup);
+        sendKeys(driver,signUpNameTextField,firstNameSignup+lastNameSignup);
+        sendKeys(driver,signUpEmailTextField,emailSignup);
         return this;
     }
     @Step("Click 'Signup' button")
     public SignupLoginPage clickSignUpButton() {
-        driver.findElement(signupButton).click();
+        clickElement(driver, signupButton);
         return this;
     }
 

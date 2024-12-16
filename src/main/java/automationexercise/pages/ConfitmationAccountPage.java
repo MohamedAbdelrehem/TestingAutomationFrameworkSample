@@ -4,8 +4,9 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-
+`
 import static utilities.ElemantActions.clickElement;
+import static utilities.ElemantActions.getElementText;
 
 public class ConfitmationAccountPage {
     private WebDriver driver;
@@ -23,8 +24,7 @@ public class ConfitmationAccountPage {
     @Step("Verify that 'ACCOUNT CREATED!' is visible")
     public ConfitmationAccountPage assertAccountCreated() {
         Assert.assertEquals(driver.getTitle(), "Automation Exercise - Account Created", "Verify Account Created page title");
-
-        Assert.assertEquals(driver.findElement(accountCreatedTitle).getText(), "ACCOUNT CREATED!", "Account Created! message not align with the title displayed");
+        Assert.assertEquals(getElementText(driver, accountCreatedTitle), "ACCOUNT CREATED!", "Account Created! message not align with the title displayed");
         return this;
     }
 
@@ -36,3 +36,4 @@ public class ConfitmationAccountPage {
     }
 
 }
+

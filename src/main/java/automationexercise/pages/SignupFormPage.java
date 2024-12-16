@@ -6,8 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import static utilities.ElemantActions.clickElement;
-import static utilities.ElemantActions.sendKeys;
+import static utilities.ElemantActions.*;
 
 public class SignupFormPage {
     private WebDriver driver;
@@ -43,7 +42,7 @@ public class SignupFormPage {
     public SignupFormPage assertSignUpPage() {
         Assert.assertEquals(driver.getTitle(), "Automation Exercise - Signup", "Verify Signup page title");
 
-        Assert.assertEquals(driver.findElement(signUpEnterAccountInfoTitle).getText(), "ENTER ACCOUNT INFORMATION", "\"Enter Account Information\" title is displayed");
+        Assert.assertEquals(getElementText(driver, signUpEnterAccountInfoTitle), "ENTER ACCOUNT INFORMATION", "\"Enter Account Information\" title is displayed");
         return this;
     }
 
@@ -57,10 +56,11 @@ public class SignupFormPage {
     }
 
     public void selectDateOfBirth(String day, String month, String year) {
-        new Select(driver.findElement(daysDropdown)).selectByVisibleText(day);
-        new Select(driver.findElement(monthsDropdown)).selectByVisibleText(month);
-        new Select(driver.findElement(yearsDropdown)).selectByVisibleText(year);
+        selectElementDropdownByVisibleText(driver, daysDropdown, day);
+        selectElementDropdownByVisibleText(driver, monthsDropdown, month);
+        selectElementDropdownByVisibleText(driver, yearsDropdown, year);
     }
+
     @Step("Select checkbox 'Sign up for our newsletter!'")
     public void selectNewsletter() {
         clickElement(driver, newsletterCheckBox);
@@ -92,7 +92,7 @@ public class SignupFormPage {
     }
 
     public void selectCountry(String country) {
-        new Select(driver.findElement(countryDropdown)).selectByVisibleText(country);
+        selectElementDropdownByVisibleText(driver, countryDropdown, country);
     }
 
     public void enterState(String state) {
@@ -110,10 +110,12 @@ public class SignupFormPage {
     public void enterMobileNumber(String mobileNumber) {
         sendKeys(driver, mobileNumberField, mobileNumber);
     }
+
     @Step("Click 'Create Account button'")
     public void clickCreateAccount() {
         clickElement(driver, createAccountButton);
     }
+
     @Step("Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number")
     public SignupFormPage fillRegisterForm(String firstName, String lastName, String password, String day, String month, String year, String company, String address1, String address2, String country, String state, String city, String zipCode, String mobileNumber) {
         selectTitleMr();

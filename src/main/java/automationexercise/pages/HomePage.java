@@ -4,6 +4,8 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+
+import static utilities.ElemantActions.isElementDisplayed;
 //import io.qameta.allure.Severity;
 
 public class HomePage {
@@ -28,12 +30,12 @@ public class HomePage {
     @Step("Verify that home page is visible successfully")
     public HomePage assertHomePage() {
 
-        //? how can i check on url and i already opend using the url
+        //? how can I check on url and i already opend using the url
         Assert.assertEquals(driver.getCurrentUrl(), homepageURL);
         Assert.assertEquals(driver.getTitle(), "Automation Exercise", "Verify that home page is visible successfully");
         // Find and interact with the Signup/Login button
         //! should be removed as it is in the bar
-        Assert.assertTrue(driver.findElement(signupLoginButtonInHomePage).isDisplayed(), "Home page visibility is True");
+        Assert.assertTrue(isElementDisplayed(driver,signupLoginButtonInHomePage), "Home page visibility is True");
         return this;
     }
 
