@@ -9,7 +9,7 @@ on:
       - master
   #when specific time comes "mm hh dayDate monthDate days[sunday(0) -> fridday(6)]
   schedule:
-    - cron: "*/2 * * * *"
+    - cron: "0/2 * * * *"
   #Manual running
   workflow_dispatch:
     inputs:
@@ -37,7 +37,7 @@ on:
           - 'false'
 
       Browser_Name_UbuntuMachine:
-        description: "name of the browser the TC will run on in Ubuntu"
+        description: "browser the TC will run on in Ubuntu"
         required: true
         default: 'chrome'
         type: choice
@@ -47,7 +47,7 @@ on:
           - 'chrome'
       #should be removed as nonheadless caues errors as advised?
       Browser_headless_UbuntuMachine:
-        description: "Will the browser run TC headless on Ubuntu"
+        description: "Headless on Ubuntu"
         required: true
         default: 'true'
         type: choice
