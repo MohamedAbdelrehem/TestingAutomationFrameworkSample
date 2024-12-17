@@ -3,13 +3,6 @@
 name: E2E Workflow Automation Exercise
 
 on:
-  #when pull request occure
-  pull_request:
-    branches:
-      - master
-  #when specific time comes "mm hh dayDate monthDate days[sunday(0) -> fridday(6)]
-  schedule:
-    - cron: "0/2 * * * *"
   #Manual running
   workflow_dispatch:
     inputs:
@@ -55,11 +48,18 @@ on:
           - 'true'
           - 'false'
 
-#      Custome Instructure
+      # Custome Instructure
       CustomeInstructureUbuntu:
         description: 'Custome Instructions added like changing a property -DpropertyName="value" or adding --flag '
         required: false
         default: ''
+  #when pull request occure
+  pull_request:
+    branches:
+      - master
+  #when specific time comes "mm hh dayDate monthDate days[sunday(0) -> fridday(6)]
+  schedule:
+    - cron: "0/2 * * * *"
 
 jobs:
   #job1
