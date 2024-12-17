@@ -63,7 +63,8 @@ on:
       - master
   #when specific time comes "mm hh dayDate monthDate days[sunday(0) -> fridday(6)]
   schedule:
-    - cron: "32 14 * * *"
+    # will run on wednesday and thursday at 2:00 AM
+    - cron: "00 2 * * 3,4"
 
 jobs:
   #job1
