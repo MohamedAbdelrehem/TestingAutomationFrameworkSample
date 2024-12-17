@@ -9,7 +9,7 @@ on:
       - master
   #when specific time comes "mm hh dayDate monthDate days[sunday(0) -> fridday(6)]
   schedule:
-    - cron: "00 3 * * 2,3"
+    - cron: "*/2 * * * *"
   #Manual running
   workflow_dispatch:
     inputs:
