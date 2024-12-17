@@ -38,7 +38,7 @@ public class TC1RegisterUser {
     @BeforeMethod
     private void setup() {
         driver = DriverFactory.initDriver(System.getProperty("browser"), System.getProperty("maximizeWindow"),System.getProperty("headless"));
-        testData = new JsonFileManager("src/test/resources/Test Data/UsersTestData.json");
+        testData = new JsonFileManager("src/test/TestData/UsersTestData.json");
         // Our own class that takes the driver as an argument and makes taking screenshots easier
         screenshot = new ScreenshotHeadway(driver);
     }
