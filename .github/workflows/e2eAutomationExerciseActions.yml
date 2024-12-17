@@ -91,7 +91,7 @@ jobs:
       - name: Run Tests
         # make script continue even if fail so help in reporting
         continue-on-error: true
-        run: mvn -Dtest="automationexercise.test.${{ github.event.inputs.TC_Class_Name }}" test -Dbrowser="${{ github.event.inputs.Browser_Name_UbuntuMachine }}" -Dheadless=${{ github.event.inputs.Browser_headless_UbuntuMachine }} ${{ github.event.inputs.CustomeInstructureUbuntu }}
+        run: mvn -Dtest="automationexercise.test.${{ github.event.inputs.TC_Class_Name || 'TC1RegisterUser' }}" test -Dbrowser="${{ github.event.inputs.Browser_Name_UbuntuMachine || 'chrome' }}" -Dheadless=${{ github.event.inputs.Browser_headless_UbuntuMachine || 'true' }} ${{ github.event.inputs.CustomeInstructureUbuntu || ''}}
       # run allure report
       - name: Allure Report
         run: mvn allure:report
@@ -101,7 +101,7 @@ jobs:
         uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
-          name: ${{ github.event.inputs.Browser_Name_UbuntuMachine }}_allure-results_Ubuntu
+          name: ${{ github.event.inputs.Browser_Name_UbuntuMachine || 'chrome' }}_allure-results_Ubuntu
           path: target/site/allure-maven-plugin/index.html
       
       - name: Publish Report
@@ -137,7 +137,7 @@ jobs:
       - name: Run Tests
         # make script continue even if fail so help in reporting
         continue-on-error: true
-        run: mvn -Dtest="automationexercise.test.${{ github.event.inputs.TC_Class_Name }}" test -Dbrowser="${{ github.event.inputs.Browser_Name_WindowsMachine }}" -Dheadless=${{ github.event.inputs.Browser_headless_WindowsMachine }}
+        run: mvn -Dtest="automationexercise.test.${{ github.event.inputs.TC_Class_Name || 'TC1RegisterUser' }}" test -Dbrowser="${{ github.event.inputs.Browser_Name_WindowsMachine || 'edge' }}" -Dheadless=${{ github.event.inputs.Browser_headless_WindowsMachine || 'false'}}
       # run allure report
       - name: Allure Report
         run: mvn allure:report
@@ -146,7 +146,7 @@ jobs:
         uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
-          name: ${{ github.event.inputs.Browser_Name_WindowsMachine }}_allure-results_Windows
+          name: ${{ github.event.inputs.Browser_Name_WindowsMachine || 'edge' }}_allure-results_Windows
           path: target/site/allure-maven-plugin/index.html
       # Publish Report
       - name: Publish Report
