@@ -1,25 +1,156 @@
+#NOTE: this file is commented to be reference for me in the future
+#Workflow name
 name: E2E Workflow Automation Exercise
 
 on:
+  #when pull request occure
   pull_request:
     branches:
       - master
+  #when specific time comes "mm hh dayDate monthDate days[sunday(0) -> fridday(6)]
   schedule:
-    - cron: "0 3 * * 2,3"
+    - cron: "00 3 * * 2,3"
+  #Manual running
   workflow_dispatch:
     inputs:
-      testsPath:
-        description: 'Path to Tests to be Executed'
+      #var name used by /{{ varname }}
+      TC_Class_Name:
+        description: 'name of the TC Class going to run Note:add "#" to run specific TC'
+        required: false
+        default: 'TC1RegisterUser'
+      Browser_Name_WindowsMachine:
+        description: "name of the browser the TC will run on in Windows"
+        required: true
+        default: 'chrome'
+        type: choice
+        options:
+          - 'firefox'
+          - 'edge'
+          - 'chrome'
+      Browser_headless_WindowsMachine:
+        description: "Will the browser run TC headless on Windows"
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+      Browser_Name_UbuntuMachine:
+        description: "name of the browser the TC will run on in Ubuntu"
+        required: true
+        default: 'chrome'
+        type: choice
+        options:
+          - 'firefox'
+          - 'edge'
+          - 'chrome'
+      #should be removed as nonheadless caues errors as advised?
+      Browser_headless_UbuntuMachine:
+        description: "Will the browser run TC headless on Ubuntu"
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+#      Custome Instructure
+      CustomeInstructureUbuntu:
+        description: 'Custome Instructions added like changing a property -DpropertyName="value" or adding --flag '
         required: false
         default: ''
 
 jobs:
-  my_job:
-    name: deploy to staging
+  #job1
+  E2E_Linux_Ubuntu_run:
+    permissions:
+      checks: write
+    #Job Name:
+    name: Regular Check Linux (ubuntu) machine
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Geting repo files
         uses: actions/checkout@v4
-      - name: run print var in cmd
-        run: echo "test message ${{ github.event.inputs.testsPath }}"
-  
+
+    #Setting up the environment
+      - run: echo "Setting up the Environment"
+      - name: Setup JDK 23
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '23'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.9.6
+      - name: Run Tests
+        # make script continue even if fail so help in reporting
+        continue-on-error: true
+        run: mvn -Dtest="automationexercise.test.${{ github.event.inputs.TC_Class_Name }}" test -Dbrowser="${{ github.event.inputs.Browser_Name_UbuntuMachine }}" -Dheadless=${{ github.event.inputs.Browser_headless_UbuntuMachine }} ${{ github.event.inputs.CustomeInstructureUbuntu }}
+      # run allure report
+      - name: Allure Report
+        run: mvn allure:report
+      #upload allure report
+      - name: Upload Allure Report
+      # version v3 is deprecated at nov 2024 
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: ${{ github.event.inputs.Browser_Name_UbuntuMachine }}_allure-results_Ubuntu
+          path: target/site/allure-maven-plugin/index.html
+      
+      - name: Publish Report
+        continue-on-error: true
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:      
+          name: Tests Report Ubuntu
+          path: 'target/surefire-reports/TEST-*.xml'      
+          reporter: java-junit
+
+  #job2 WINDOWS
+  E2E_Windows_run:
+    permissions:
+      checks: write
+    name: Regular Check Windows machine
+    runs-on: windows-latest
+    steps:
+      - name: Geting repo files
+        uses: actions/checkout@v4
+
+    #Setting up the environment
+      - run: echo "Setting up the Environment"
+      - name: Setup JDK 23
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '23'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.9.6
+      - name: Run Tests
+        # make script continue even if fail so help in reporting
+        continue-on-error: true
+        run: mvn -Dtest="automationexercise.test.${{ github.event.inputs.TC_Class_Name }}" test -Dbrowser="${{ github.event.inputs.Browser_Name_WindowsMachine }}" -Dheadless=${{ github.event.inputs.Browser_headless_WindowsMachine }}
+      # run allure report
+      - name: Allure Report
+        run: mvn allure:report
+      #upload allure report
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: ${{ github.event.inputs.Browser_Name_WindowsMachine }}_allure-results_Windows
+          path: target/site/allure-maven-plugin/index.html
+      # Publish Report
+      - name: Publish Report
+        continue-on-error: true
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:      
+          name: Tests Report Windows
+          path: 'target/surefire-reports/TEST-*.xml'      
+          reporter: java-junit
+
