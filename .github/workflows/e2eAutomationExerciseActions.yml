@@ -53,6 +53,10 @@ on:
         description: 'Custome Instructions added like changing a property -DpropertyName="value" or adding --flag '
         required: false
         default: ''
+  #when push occure
+  push:
+    branches:
+      - master
   #when pull request occure
   pull_request:
     branches:
